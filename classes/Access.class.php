@@ -90,9 +90,9 @@ class Access
 	/**
 	 * check if a user can access the object he's trying to access
 	 *
-	 * @param string $object_type : contact|account|company|meeting|alert
-	 * @param int    $object_id,  the object id
-	 * @param bool   $redirection, true if user is redirected in case of violation access
+	 * @param string $object_type	contact|account|company|meeting|alert
+	 * @param int    $object_id		the object id
+	 * @param bool   $redirection	true if user is redirected in case of violation access
 	 *
 	 * @return mixed bool|void, true if user can access, false if user cannot access and redirection is set to false, else void (redirection)
 	 */
@@ -170,8 +170,8 @@ class Access
 	/**
 	 * check if a user has access to a component
 	 *
-	 * @param int $user_id, the user_id
-	 * @param string $component, the component name
+	 * @param int $user_id	the user_id
+	 * @param string $component	the component name
 	 *
 	 * @return boolean
 	 */
@@ -289,12 +289,13 @@ class Access
 	 */
 	public function getAccountsForUser($user_id)
 	{
-		$sql = "SELECT DISTINCT(rel_account_id)
+		$sql = "SELECT rel_account_id
 			FROM user_account_relationships
 				LEFT JOIN accounts ON (accounts.account_id = user_account_relationships.rel_account_id)
 			WHERE (rel_user_id = :user_id
 				OR account_user_id = :user_id)
 				AND account_active = 1
+			GROUP BY rel_account_id
 			ORDER BY account_name";
 		$query = $this->_pdo->prepare($sql);
 		$query->execute(array('user_id' => $user_id));
