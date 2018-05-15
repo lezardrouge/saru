@@ -41,14 +41,39 @@
 <p class="btn_action"><a href="?tpl=form&user_id=0" class="no_underline"><img src='images/add.png' alt='Ajouter' class='icon' />Ajouter</a></p>
 <?php endif; ?>
 
+
+<!-- filters ############################################################### -->
+<form name="filter" action="" method="get" class="form-inline">
+<fieldset class="span12 filters">
+	<legend class="filter_title"><img src="images/search.png" alt="" class="icon">Recherche</legend>
+
+	<div class="control-group">
+
+		<label for="f_name" class="control-label">Nom/prénom</label>
+		<input type="text" name="f_name" id="f_name" value="<?php if(isset($criteria['f_name'])): echo $criteria['f_name']; endif; ?>" class="input-medium">
+
+		<label for="f_login" class="control-label">Identifiant</label>
+		<input type="text" name="f_login" id="f_login" value="<?php if(isset($criteria['f_login'])): echo $criteria['f_login']; endif; ?>" class="input-medium">
+
+		<label for="f_email" class="control-label">Email</label>
+		<input type="text" name="f_email" id="f_email" value="<?php if(isset($criteria['f_email'])): echo $criteria['f_email']; endif; ?>" class="input-medium">
+
+		<input type="submit" class="btn btn-info" name="submitform" value="Filtrer" />
+		<input type="button" class="btn" name="reset" value="Voir tout" onclick="location.href='users.php';" />
+	</div>
+
+</fieldset>
+</form>
+
+
 <?php if($users_list['total'] == 0): ?>
-		<p>Aucun utilisateur.</p>
+	<p>Aucun utilisateur.</p>
 <?php else:
 
 	$num_rows = $users_list['total'];
 
-	Utils::displayPagination($num_rows, $current, $more_params);
-	?>
+	Utils::displayPagination($num_rows, $current, $more_params_pag);
+?>
 
 		<table class="table tlist">
 		  <tr>
@@ -88,6 +113,6 @@
 		endforeach; ?>
 		</table>
 <?php
-		Utils::displayPagination($num_rows, $current, $more_params);
+		Utils::displayPagination($num_rows, $current, $more_params_pag);
 	endif;
 ?>

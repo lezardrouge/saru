@@ -102,6 +102,7 @@ if($tpl == "list") {
 		$dep = ($current - 1) * NB_RECORDS;
 	}
 	$more_params = ''; // params to add to sorting in display
+	$more_params_pag = ''; // params to add to pagination in display
 	$criteria = array();
 	$sanitized_get = Utils::sanitizeArray($_GET);
 	// sorting
@@ -112,8 +113,23 @@ if($tpl == "list") {
 		} else {
 			$criteria['order'] = 'asc';
 		}
+		$more_params_pag .= '&order=' . $criteria['order'];
 	}
-
+	// filter
+	if(isset($sanitized_get['f_name'])) {
+		$criteria['f_name'] = $sanitized_get['f_name'];
+		$more_params .= '&f_name=' . $sanitized_get['f_name'];
+	}
+	if(isset($sanitized_get['f_login'])) {
+		$criteria['f_login'] = $sanitized_get['f_login'];
+		$more_params .= '&f_login=' . $sanitized_get['f_login'];
+	}
+	if(isset($sanitized_get['f_email'])) {
+		$criteria['f_email'] = $sanitized_get['f_email'];
+		$more_params .= '&f_email=' . $sanitized_get['f_email'];
+	}
+	//-- end filters
+	$more_params_pag .= $more_params;
 	$users_list = $dao->getList($criteria, NB_RECORDS, $dep);
 
 	//---------------------------------

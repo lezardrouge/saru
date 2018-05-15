@@ -51,9 +51,9 @@ class DaoUsers
 	/**
 	 * get list of users, possibly paginated, ordered and filtered
 	 *
-	 * @param array $criteria, search & order criteria
-	 * @param int $num, number of records to fetch ; default : NB_RECORDS
-	 * @param int $limit, number from which to fetch ; default : 0
+	 * @param array $criteria	search & order criteria
+	 * @param int $num			number of records to fetch ; default : NB_RECORDS
+	 * @param int $limit		number from which to fetch ; default : 0
 	 *
 	 * @return array(total, results)
 	 */
@@ -74,6 +74,14 @@ class DaoUsers
 			if(isset($criteria['f_name']) && ! empty($criteria['f_name'])) {
 				$sql .= " AND (users.user_lastname LIKE :name OR users.user_firstname LIKE :name)";
 				$conditions['name'] = "%" . $criteria['f_name'] . "%";
+			}
+			if(isset($criteria['f_login']) && ! empty($criteria['f_login'])) {
+				$sql .= " AND (users.user_login LIKE :login)";
+				$conditions['login'] = "%" . $criteria['f_login'] . "%";
+			}
+			if(isset($criteria['f_email']) && ! empty($criteria['f_email'])) {
+				$sql .= " AND (users.user_email LIKE :email)";
+				$conditions['email'] = "%" . $criteria['f_email'] . "%";
 			}
 		}
 		//-----------------------------
@@ -114,7 +122,7 @@ class DaoUsers
 
 
 	/**
-	 * get users that have access to an account
+	 * get users who have access to an account
 	 *
 	 * @param int $account_id
 	 *
@@ -190,7 +198,7 @@ class DaoUsers
 	 * check if a login is unique in DB
 	 *
 	 * @param string $login
-	 * @param int $user_id, the user id to exclude from search
+	 * @param int $user_id	the user id to exclude from search
 	 *
 	 * @return boolean
 	 */
