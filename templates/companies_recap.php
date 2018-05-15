@@ -64,7 +64,7 @@ if(MOD_CRM == 1):
 			<td><?php echo Utils::date2Fr($company->getDate_add()); ?></td>
 		</tr>
 <?php
-		$even_odd = ! $even_odd;
+		$even_odd = !$even_odd;
 		$bgcolor = ($even_odd ? "even":"odd");
 ?>
 		<tr class="<?php echo $bgcolor; ?>">
@@ -72,7 +72,7 @@ if(MOD_CRM == 1):
 			<td><?php echo Utils::date2Fr($company->getDate_update()); ?></td>
 		</tr>
 <?php
-	$even_odd = ! $even_odd;
+	$even_odd = !$even_odd;
 endif;
 $bgcolor = ($even_odd ? "even":"odd");
 ?>
@@ -158,7 +158,12 @@ $bgcolor = ($even_odd ? "even":"odd");
 				<a href="contacts.php?tpl=recap&contact_id=<?php echo $contact->getId(); ?>"><img src="images/recap.png" alt="Fiche" /></a>
 			<?php endif; ?>
 			</td>
-			<td><?php echo $contact->getLastname(); ?> <?php echo $contact->getFirstname(); ?><br>
+			<td><?php if(Access::userCanAccess('contact_recap', false)): ?>
+				<a href="contacts.php?tpl=recap&contact_id=<?php echo $contact->getId(); ?>" class="invisible-link"><?php echo $contact->getLastname(); ?> <?php echo $contact->getFirstname(); ?></a>
+			<?php else: ?>
+				<?php echo $contact->getLastname(); ?> <?php echo $contact->getFirstname(); ?>
+			<?php endif; ?>
+			<br>
 			<?php if(isset($contact_infos[$contact->getId()][1])): echo $contact_infos[$contact->getId()][1]; endif; ?><br>
 			<?php if(isset($contact_infos[$contact->getId()][4])): ?>
 				<a href='mailto:<?php echo $contact_infos[$contact->getId()][4]; ?>'><?php echo $contact_infos[$contact->getId()][4]; ?></a>

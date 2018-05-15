@@ -160,7 +160,13 @@ if(Access::userCanAccess('company_recap', false)):
 
 	<table class="trecap">
 		<tr>
-			<th colspan="2"><img src="images/company.png" alt="[company]" class="icon">Entreprise</th>
+			<th colspan="2">
+			<?php if(Access::userCanAccess('company_recap', false)): ?>
+				<a href="companies.php?tpl=recap&company_id=<?php echo $company->getId(); ?>" class="invisible-link"><img src="images/company.png" alt="[company]" class="icon">Entreprise</a>
+			<?php else: ?>
+				<img src="images/company.png" alt="[company]" class="icon">Entreprise
+			<?php endif; ?>
+			</th>
 		</tr>
 <?php
 		$even_odd = true;

@@ -469,6 +469,9 @@ a.invisible-link {
 	text-decoration: none;
 	color: #003F55;
 }
+th a.invisible-link {
+	color: #FFF;
+}
 
 .inline { white-space: nowrap; padding-left: 3px; display: inline; }
 @media print {
