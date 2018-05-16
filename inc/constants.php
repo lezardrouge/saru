@@ -69,6 +69,6 @@ define('TYPE_MSG_INFO',    'info');
 | do not touch, even if you know what you are doing
 |--------------------------------------------------------------------------
 */
-define('VERSION', '1.4.1');
+define('VERSION', '1.4.2');
 
 ?>

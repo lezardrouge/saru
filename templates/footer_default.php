@@ -40,7 +40,7 @@
 	<div id="footer" class="row-fluid">
 		<a href="http://www.saru.fr/" target="_blank" class="a-propos">À propos de Saru</a> -
 		<a href="http://www.saru.fr/contact/" target="_blank" class="a-propos">Contactez-nous</a> -
-		Saru v<?php echo VERSION; ?> - 2012-2014 - GNU/AGPL v3 - Lézard Rouge
+		Saru v<?php echo VERSION; ?> - 2012-2018 - GNU/AGPL v3 - Lézard Rouge
 	</div><!-- #footer -->
 
 </div> <!-- .container-fluid -->
