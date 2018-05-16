@@ -1,0 +1,9 @@
+# config files
+inc/config.php
+
+# log files
+files/log_*
+
+# attachments files
+attachments/*
+!attachments/index.html
