@@ -62,6 +62,23 @@ define('TYPE_MSG_SUCCESS', 'success');
 define('TYPE_MSG_PERM_SUCCESS', 'perm_success');
 define('TYPE_MSG_INFO',    'info');
 
+/*
+|--------------------------------------------------------------------------
+| file permissions
+|--------------------------------------------------------------------------
+|
+| READ_WRITE	=>	set read & write permissions
+| READ			=>	set read permissions
+| WRITE			=>	set write permissions
+| NONE			=>	set no permission
+|
+*/
+define('READ_WRITE', 6);
+define('READ', 4);
+define('WRITE', 3);
+define('NONE', 0);
+
+
 
 /*
 |--------------------------------------------------------------------------

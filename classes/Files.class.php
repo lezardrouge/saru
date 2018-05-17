@@ -298,11 +298,26 @@ class Files
 	 * change permissions on a file
 	 *
 	 * @param string $file	the file path & name ; must be accessible via the server's filesystem (no remote file)
+	 * @param string $perms	permissions ; possible values (constants) : READ_WRITE|READ|WRITE|NONE
 	 */
-	public function chmodFile($file)
+	public function chmodFile($file, $perms)
 	{
 		if(file_exists($file)) {
-			chmod($file, 0000);
+			switch ($perms) {
+				case READ_WRITE:
+					chmod($file, 0660);
+					break;
+				case READ:
+					chmod($file, 0440);
+					break;
+				case WRITE:
+					chmod($file, 0330);
+					break;
+				case NONE:
+				default:
+					chmod($file, 0000);
+					break;
+			}
 		}
 	}
 

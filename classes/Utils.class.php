@@ -516,7 +516,9 @@ class Utils
 		}
 		$fileClass = new Files();
 		$log_file = LOCAL_PATH . 'files/log_' . date('Ym');
+		$fileClass->chmodFile($log_file, READ_WRITE);
 		$fileClass->writeFile($log_file, $buffer);
+		$fileClass->chmodFile($log_file, NONE);
 	}
 
 
@@ -530,7 +532,9 @@ class Utils
 		$buffer = "\n" . date('Y-m-d H:i:s') . $info;
 		$fileClass = new Files();
 		$log_file = LOCAL_PATH . 'files/connection_logs_' . date('Ym');
+		$fileClass->chmodFile($log_file, READ_WRITE);
 		$fileClass->writeFile($log_file, $buffer);
+		$fileClass->chmodFile($log_file, NONE);
 	}
 
 
