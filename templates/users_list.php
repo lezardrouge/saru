@@ -109,7 +109,7 @@
 				<td><?php echo $user->getLogin(); ?></td>
 				<td><?php echo $user->getEmail() ;?></td>
 				<td class="action"><?php if ($user->getSend_alerts() == 0): ?>
-					<img src="images/alerte_mute.png" alt="Alerts suspendues">
+					<img src="images/alerte_mute.png" alt="Alertes suspendues">
 				<?php endif; ?>
 				</td>
 			</tr>
