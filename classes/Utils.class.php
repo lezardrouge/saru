@@ -704,13 +704,25 @@ class Utils
 	/**
 	 * generate a token in session to prevent CSRF attacks
 	 *
-	 * @param string $prefix, a prefix for variable name
-	 *
 	 * @return void
 	 */
 	public static function generateCsrfToken()
 	{
 		$token = md5(uniqid(rand(), true));
+		return $token;
+	}
+
+
+	/**
+	 * generate a token for password reset
+	 *
+	 * @param User $user
+	 *
+	 * @return string
+	 */
+	public static function generateResetToken($user)
+	{
+		$token = md5($user->getId() . uniqid(rand(), true) . $user->getEmail());
 		return $token;
 	}
 

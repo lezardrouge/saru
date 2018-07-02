@@ -3,7 +3,7 @@
  * SARU
  * organize your contacts
  *
- * Copyright (c) 2012-2018 Marie Kuntz - Lezard Rouge
+ * Copyright (c) 2012-2014 Marie Kuntz - Lezard Rouge
  *
  * This file is part of SARU.
  * SARU is free software: you can redistribute it and/or modify
@@ -24,21 +24,25 @@
  * If you need a commercial license or if you don't know which licence you need,
  * please contact us at <info@saru.fr>
  *
+ * @copyright  Copyright (c) 2012-2014 Marie Kuntz - Lezard Rouge (http://www.lezard-rouge.fr)
+ * @license    GNU-AGPL v3 http://www.gnu.org/licenses/agpl.html
+ * @version    1
+ * @author     Marie Kuntz - Lezard Rouge SARL - www.lezard-rouge.fr - contact@lezard-rouge.fr
  */
 
 /**
  * TEMPLATE
- * login page
+ * reset password page
  *
- * @since	1.0
- * @author	Marie Kuntz / Lézard Rouge <mariek@lezard-rouge.fr>
+ * @since 2.0
+ * @author Marie Kuntz / Lézard Rouge
  */
 
 if( ! defined('LOCAL_PATH')) { exit; }
 ?>
 <div class="row-fluid">
 	<div id="login" class="span4 offset4">
-		<h1><img src="images/login.png" class="icon" alt="Connexion">Connexion</h1>
+		<h1><img src="images/password.png" class="icon" alt="Mot de passe">Réinitialiser le mot de passe</h1>
 
 		<?php
 		if(isset($message)):
@@ -46,13 +50,15 @@ if( ! defined('LOCAL_PATH')) { exit; }
 		endif;
 		?>
 		<form name="loginform" method="post" action="login.php">
-			<p><input type="text" name="username" id="username" class="" placeholder="Identifiant" value="<?php if(isset($username)):
-				echo $username;
-			endif; ?>"></p>
-			<p><input type="password" name="password" id="password" class="" placeholder="Mot de passe"></p>
-			<input type="hidden" name="login_token" value="<?php echo $_SESSION['login_token']; ?>">
-			<p><input type="submit" name="submitform" value="Connexion" class="btn btn-info"></p>
-			<p><a href="login.php?action=pwd" class="btn btn-mini btn-link">J'ai oublié mon mot de passe</a></p>
+			<input type="hidden" name="action" value="reset">
+			<input type="hidden" name="t" value="<?php echo $token; ?>">
+			<input type="hidden" name="l" value="<?php echo $login; ?>">
+
+			<p class="alert alert-info">Indiquez un nouveau mot de passe d'au moins 8 caractères.
+				Vous pouvez utiliser les lettres de l'alphabet (majuscules et minuscules),
+				les chiffres et les caractères spéciaux suivants : -_@!?$ (pas d'espace).</p>
+			<p><input type="input" autocomplete="off" name="password" id="password" class="" placeholder="Nouveau mot de passe"></p>
+			<p><input type="submit" name="submitform" value="Enregistrer le nouveau mot de passe" class="btn btn-info"></p>
 		</form>
 
 	</div>

@@ -56,10 +56,113 @@ if(isset($_SESSION['sess_message'])) {
 	unset($_SESSION['sess_message'], $_SESSION['sess_message_type']);
 }
 
+
+
+//-------------------------------------
+// LOGOUT
+//-------------------------------------
+if($action == 'logout') {
+
+	$token = Utils::sanitize($_GET['token']);
+	if( ! Utils::isValidToken($token)) {
+		$prov = $_SERVER['HTTP_REFERER'];
+		header("Location:" . $prov);
+		exit;
+	} else {
+		$_SESSION['sess_message'] = 'Vous êtes maintenant déconnecté.';
+		$_SESSION['sess_message_type'] = TYPE_MSG_SUCCESS;
+		$session->destroySession();
+	}
+
+}
+
+
+//-------------------------------------
+// FORGOTTEN PASSWORD
+//-------------------------------------
+elseif($action == 'pwd') {
+
+	if (isset($_POST['submitform']) && ! empty($_POST['submitform'])) {
+		$username = Utils::sanitize($_POST['username']);
+		if( ! empty($username)) {
+			//check if exists
+			$daoUsers = new DaoUsers();
+			$exists = $daoUsers->askForResetPassword($username);
+			if( ! $exists) {
+				$message = Utils::displayMessage("L'identifiant indiqué n'existe pas.", TYPE_MSG_ERROR);
+			} else {
+				$message = Utils::displayMessage("Un mail vient d'être envoyé. Suivez les instructions indiquées dans le mail pour réinitialiser votre mot de passe.", TYPE_MSG_SUCCESS);
+			}
+		} else {
+			$message = Utils::displayMessage('Veuillez saisir votre identifiant (login).', TYPE_MSG_ERROR);
+		}
+	} else {
+		$cookie_login = filter_input(INPUT_COOKIE, COOKIE_LOGIN);
+		$username = $cookie_login;
+	}
+
+	//---------------------------------
+	// display
+	include('templates/header_default.php');
+	include('templates/forgotten_pwd.php');
+	include('templates/footer_default.php');
+
+}
+
+
+//-------------------------------------
+// RESET PASSWORD
+//-------------------------------------
+elseif($action == 'reset') {
+
+	$daoUsers = new DaoUsers();
+	$login = '';
+	$token = '';
+	if(isset($_GET['l']) && ! empty($_GET['l'])) {
+		$login = Utils::sanitize($_GET['l']);
+	} elseif (isset($_POST['l']) && ! empty($_POST['l'])) {
+		$login = Utils::sanitize($_POST['l']);
+	}
+	if(isset($_GET['t']) && ! empty($_GET['t'])) {
+		$token = Utils::sanitize($_GET['t']);
+	} elseif (isset($_POST['t']) && ! empty($_POST['t'])) {
+		$token = Utils::sanitize($_POST['t']);
+	}
+
+	// check if the user actually ask for a new pwd
+	$valid = $daoUsers->isValidPasswordReset($login, $token);
+	if(!$valid) {
+		$message = "Une erreur est survenue.";
+		$tpl = "error.php";
+	} else {
+		if (isset($_POST['submitform']) && ! empty($_POST['submitform'])) {
+			$new_password = Utils::sanitize($_POST['password']);
+			$check = $daoUsers->checkValidPassword($new_password);
+			if($check) {
+				$daoUsers->resetPassword($login, $new_password);
+				$_SESSION['sess_message'] = 'Mot de passe changé avec succès. Veuillez vous connecter.';
+				$_SESSION['sess_message_type'] = TYPE_MSG_SUCCESS;
+				header("Location: login.php");
+			} else {
+				$message = Utils::displayMessage('Veuillez saisir un mot de passe valide.', TYPE_MSG_ERROR);
+			}
+		}
+		$tpl = "reset_password.php";
+	}
+
+	//---------------------------------
+	// display
+	include('templates/header_default.php');
+	include('templates/' . $tpl);
+	include('templates/footer_default.php');
+
+}
+
+
 //-------------------------------------
 // LOGIN
 //-------------------------------------
-if(empty($action)) {
+else {
 
 	if (isset($_POST['submitform']) && ! empty($_POST['submitform'])) {
 		// CSRF token validity
@@ -100,23 +203,6 @@ if(empty($action)) {
 	include('templates/header_default.php');
 	include('templates/login.php');
 	include('templates/footer_default.php');
-
-}
-//-------------------------------------
-// LOGOUT
-//-------------------------------------
-elseif($action == 'logout') {
-
-	$token = Utils::sanitize($_GET['token']);
-	if( ! Utils::isValidToken($token)) {
-		$prov = $_SERVER['HTTP_REFERER'];
-		header("Location:" . $prov);
-		exit;
-	} else {
-		$_SESSION['sess_message'] = 'Vous êtes maintenant déconnecté.';
-		$_SESSION['sess_message_type'] = TYPE_MSG_SUCCESS;
-		$session->destroySession();
-	}
 
 }
 ?>

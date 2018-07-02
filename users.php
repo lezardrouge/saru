@@ -130,6 +130,7 @@ if($tpl == "list") {
 	}
 	//-- end filters
 	$more_params_pag .= $more_params;
+
 	$users_list = $dao->getList($criteria, NB_RECORDS, $dep);
 
 	//---------------------------------
@@ -179,6 +180,7 @@ elseif($tpl == "form") {
 				'user_login'        => $sanitized_post['u_login'],
 				'user_currentlogin' => $sanitized_post['u_currentlogin'],
 				'user_pwd'          => $sanitized_post['u_pwd'],
+				'user_new_pwd'      => 0,
 				'user_email'        => $sanitized_post['u_email'],
 			);
 			// perms

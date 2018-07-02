@@ -43,6 +43,8 @@ class User
 	private $_login;
 	private $_pwd;
 	private $_email;
+	private $_new_pwd;
+	private $_token;
 	private $_access_perms;
 	private $_access_perm_ids;
 	private $_account_perms;
@@ -87,6 +89,14 @@ class User
 	public function getEmail ()
 	{
 		return $this->_email;
+	}
+	public function getNew_pwd ()
+	{
+		return $this->_new_pwd;
+	}
+	public function getToken ()
+	{
+		return $this->_token;
 	}
 	public function getAccess_perms()
 	{
@@ -138,6 +148,18 @@ class User
 	public function setEmail ($email)
 	{
 		$this->_email = $email;
+	}
+	public function setNew_pwd ($new_pwd)
+	{
+		$i_new_pwd = (int) $new_pwd;
+		if($i_new_pwd != 1) {
+			$i_new_pwd = 0;
+		}
+		$this->_new_pwd = $i_new_pwd;
+	}
+	public function setToken ($token)
+	{
+		$this->_token = $token;
 	}
 	public function setAccess_perms ($perms)
 	{

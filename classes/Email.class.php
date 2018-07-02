@@ -88,18 +88,39 @@ class Email
 
 
 	/**
+	 * send mail to reset password
+	 *
+	 * @param object User $user
+	 */
+	public function sendResetPassword($user)
+	{
+		$recipient = array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname());
+		$from = array($this->_from_email => $this->_from_name);
+		$subject = 'Réinitialisez votre mot de passe SARU';
+		$reset_url = URL_PATH . "login.php?action=reset&l=" . $user->getLogin() . "&t=" . $user->getToken();
+		$body = "<p>Quelqu'un (probablement vous) a demandé à réinitialiser votre mot de passe sur SARU.<br>"
+			. "Si ce n'est pas vous, vous n'avez rien à faire, votre mot de passe ne sera pas modifié.<br>"
+			. "Si c'est bien vous, cliquez sur le lien ci-dessous et entrez votre nouveau mot de passe, "
+			. "puis connectez-vous à SARU. Votre mot de passe est changé !</p>"
+			. "<p><a href='" . $reset_url . "'>" . $reset_url . "</a></p>";
+		$this->sendMail($recipient, $from, $subject, $body);
+	}
+
+
+	/**
 	 * send a mail
 	 *
 	 * @param array $recipients
 	 * @param array $from
 	 * @param string $subject
 	 * @param string $body
-	 * @param int $priority, priority sending
+	 * @param int $priority			priority sending
 	 */
 	private function sendMail($recipients, $from, $subject, $body, $priority = 3)
 	{
 		$transport = $this->selectTransport();
 		$mailer = Swift_Mailer::newInstance($transport);
+		$failures = array();
 
 		$message = Swift_Message::newInstance()
 			->setSubject($subject)

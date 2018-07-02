@@ -52,7 +52,7 @@ class DaoUsers
 	 * get list of users, possibly paginated, ordered and filtered
 	 *
 	 * @param array $criteria	search & order criteria
-	 * @param int $num			number of records to fetch ; default : NB_RECORDS
+	 * @param int $num		number of records to fetch ; default : NB_RECORDS
 	 * @param int $limit		number from which to fetch ; default : 0
 	 *
 	 * @return array(total, results)
@@ -264,6 +264,43 @@ class DaoUsers
 
 
 	/**
+	 * check if a password reset is valid
+	 *
+	 * @param string $login	the user login
+	 * @param string $token	the user token
+	 *
+	 * @return boolean
+	 */
+	public function isValidPasswordReset($login, $token)
+	{
+		$user = $this->getUserByLogin($login);
+		if(!$user || $user->getNew_pwd() != 1 || $user->getToken() !== $token) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	/**
+	 * check password valididity
+	 *
+	 * @param string $password	string to check
+	 *
+	 * @return boolean
+	 */
+	public function checkValidPassword($password)
+	{
+		if((strlen($password) < 8)
+			|| ( ! preg_match("/^([-a-z0-9_\-@!\?\$])+$/i", $password)))
+		{
+			return false;
+		}
+		return true;
+	}
+
+
+	/**
 	 * add a user
 	 *
 	 * @param object User
@@ -278,13 +315,17 @@ class DaoUsers
 				`user_firstname` = :firstname,
 				`user_login`     = :login,
 				`user_pwd`       = :pwd,
-				`user_email`     = :email");
+				`user_email`     = :email,
+				`user_new_pwd`   = :newpwd,
+				`user_token`     = :token");
 		$query_result = $query->execute(array(
 				'lastname'  => $user->getLastname(),
 				'firstname' => $user->getFirstname(),
 				'login'     => $user->getLogin(),
 				'pwd'       => Utils::hashPwd($user->getLogin(), $user->getPwd()),
-				'email'     => $user->getEmail()
+				'email'     => $user->getEmail(),
+				'newpwd'    => $user->getNew_pwd(),
+				'token'     => $user->getToken()
 			)
 		);
 		if( ! $query_result) {
@@ -323,13 +364,17 @@ class DaoUsers
 				`user_firstname` = :firstname,
 				`user_login`     = :login,
 				%s
-				`user_email`     = :email
+				`user_email`     = :email,
+				`user_new_pwd`   = :newpwd,
+				`user_token`     = :token
 			WHERE user_id = :id";
 		$inputs = array(
 				'lastname'  => $user->getLastname(),
 				'firstname' => $user->getFirstname(),
 				'login'     => $user->getLogin(),
 				'email'     => $user->getEmail(),
+				'newpwd'    => $user->getNew_pwd(),
+				'token'     => $user->getToken(),
 				'id'        => $user->getId()
 			);
 		$pwd = $user->getPwd();
@@ -370,10 +415,16 @@ class DaoUsers
 	 */
 	public function updateUserPwd(User $user)
 	{
-		$sql = "UPDATE `users` SET `user_pwd` = :pwd WHERE user_id = :id";
+		$sql = "UPDATE `users` "
+			. "SET `user_pwd` = :pwd, "
+			. "`user_new_pwd` = :newpwd, "
+			. "`user_token` = :token "
+			. "WHERE user_id = :id";
 		$hashed_pwd = Utils::hashPwd($user->getLogin(), $user->getPwd());
 		$inputs = array(
 			'pwd' => $hashed_pwd,
+			'newpwd' => 0,
+			'token' => null,
 			'id'  => $user->getId()
 		);
 		$query = $this->_pdo->prepare($sql);
@@ -382,10 +433,96 @@ class DaoUsers
 			Utils::dump($query->errorInfo());
 		}
 		$user->hydrate(array(
-			'user_pwd' => $hashed_pwd
+			'user_pwd' => $hashed_pwd,
+			'user_new_pwd' => 0,
+			'user_token' => null
 		));
 		$query->closeCursor();
 		return $user;
+	}
+
+
+	/**
+	 * update user when asked for reset password
+	 *
+	 * @param object User
+	 *
+	 * @return object User
+	 */
+	public function updateUserResetPwd(User $user)
+	{
+		$sql = "UPDATE `users` "
+			. "SET `user_new_pwd` = :newpwd, `user_token` = :token "
+			. "WHERE user_id = :id";
+		$inputs = array(
+			'newpwd' => $user->getNew_pwd(),
+			'token' => $user->getToken(),
+			'id'  => $user->getId()
+		);
+		$query = $this->_pdo->prepare($sql);
+		$query_result = $query->execute($inputs);
+		if( ! $query_result) {
+			Utils::dump($query->errorInfo());
+		}
+		$query->closeCursor();
+	}
+
+
+	/**
+	 * ask for user password reset
+	 *
+	 * @param string $login		user's login (not necessarily email)
+	 *
+	 * @return boolean
+	 */
+	public function askForResetPassword($login)
+	{
+		$user = $this->getUserByLogin($login);
+		if($user === false) {
+			return false;
+		} else {
+			// @todo if token and flag exist, send mail to admin to warn
+			//if($user->getNew_pwd() == 1 && !empty($user->getToken())) {
+			//}
+			$this->flagResetPassword($user);
+			return true;
+		}
+	}
+
+
+	/**
+	 * generated token & flag and send mail to user
+	 *
+	 * @param object User $user
+	 */
+	public function flagResetPassword($user)
+	{
+		$token = Utils::generateResetToken($user);
+		$user->setToken($token);
+		$user->setNew_pwd(1);
+		$this->updateUserResetPwd($user);
+
+		$email = new Email();
+		$email->sendResetPassword($user);
+	}
+
+
+	/**
+	 * reset user password
+	 *
+	 * @param string $login			user login
+	 * @param string $new_password	new password
+	 *
+	 * @return void
+	 */
+	public function resetPassword($login, $new_password)
+	{
+		$user = $this->getUserByLogin($login);
+		if($user !== false) {
+			$user->setPwd($new_password);
+			$this->updateUserPwd($user);
+			// @todo warn user password has been reset
+		}
 	}
 
 
