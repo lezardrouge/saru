@@ -87,6 +87,14 @@ if($tpl == "home") {
 		}
 	}
 
+	// filtering alerts cookie
+	$filterAlert = false;
+	if(isset($_COOKIE['onlyme']) && $_COOKIE['onlyme'] == 1) {
+		$filterAlert = true;
+	} elseif(!isset($_COOKIE['onlyme'])) {
+		setcookie('onlyme', '0', time()+60*60*24*30, '/', '', false, false);
+	}
+
 	if(Access::userCanAccess('alert_list', false)) {
 		if($session->getSessionData('account') !== false && $session->getSessionData('account') != '') {
 			$no_account = false;
@@ -96,6 +104,9 @@ if($tpl == "home") {
 				'order'  => 'asc',
 				'f_done' => 0,
 			);
+			if($filterAlert) {
+				$criteria['f_user'] = $session->getSessionData('user_id');
+			}
 			$alerts_list = $dao_alerts->getList($criteria, 0);
 		} else {
 			$no_account = true;

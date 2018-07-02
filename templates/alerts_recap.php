@@ -77,6 +77,23 @@ if( ! defined('LOCAL_PATH')) { exit; }
 
 		endforeach;
 ?>
+	
+<?php if(count($users) > 1): ?>
+<div class="row-fluid">
+	<span class="span10">
+		<form name="alert_filter" id="alert_filter" method="post" action="alerts.php?tpl=filter" class="form-inline">
+			<label class="checkbox"><input type="checkbox" name="onlyme" id="onlyme" value="1" class="form-control"<?php if($filterAlert): ?> checked<?php endif; ?>> Ne montrer que mes alertes</label>
+		</form>
+	</span>
+</div>
+
+<script type="text/javascript">
+	$('#onlyme').click(function() {
+		$('#alert_filter').submit();
+	});
+</script>
+<?php endif; ?>
+
 
 <div class="row-fluid">
 	<div class="span10">

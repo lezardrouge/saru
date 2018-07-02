@@ -56,7 +56,7 @@ $dao = new DaoAlerts();
 // set page to display
 $default = "list";
 $tpl = "";
-$tpl_array = array("list","form", "form_s", "del", "confirmed", "done");
+$tpl_array = array("list","form", "form_s", "del", "confirmed", "done", "filter");
 if (isset($_GET['tpl']) && ! empty($_GET['tpl'])) {
 	$tpl = Utils::sanitize($_GET['tpl']);
 } elseif (isset($_POST['tpl']) && ! empty($_POST['tpl'])) {
@@ -442,4 +442,31 @@ elseif($tpl == 'alert') {
 	$dao->sendAlerts();
 
 }
+
+//------------------------------------------------------------------------------
+// HOME FILTER
+//------------------------------------------------------------------------------
+elseif($tpl == 'filter') {
+
+	// access rights
+	Access::userCanAccess('alert_list');
+
+	if(isset($_GET['prov']) && ! empty($_GET['prov'])) {
+		$prov = Utils::sanitize(urlencode($_GET['prov'])) . '.php';
+	} else {
+		$prov = 'index.php';
+	}
+	$onlyMe = Utils::sanitize($_POST['onlyme']);
+	if($onlyMe == 1) {
+		setcookie('onlyme', '1', time()+60*60*24*30, '/', '', false, false);
+	} else {
+		setcookie('onlyme', '0', time()+60*60*24*30, '/', '', false, false);
+	}
+	header("Location:" . $prov);
+	exit;
+
+}
+
+
+
 ?>

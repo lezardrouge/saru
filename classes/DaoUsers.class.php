@@ -67,7 +67,6 @@ class DaoUsers
 		//-----------------------------
 		// filters
 		//-----------------------------
-		// dirty hack
 		$sql .= ' WHERE 1 = 1 ';
 		$conditions = array();
 		if ( ! empty($criteria)) {
