@@ -150,6 +150,10 @@ if($tpl == "list") {
 		$criteria['f_date_to'] = Utils::sanitize($_GET['f_date_to']);
 		$more_params .= '&f_date_to=' . Utils::sanitize($_GET['f_date_to']);
 	}
+	if(isset($_GET['f_when'])) {
+		$criteria['f_when'] = Utils::sanitize($_GET['f_when']);
+		$more_params .= '&f_when=' . Utils::sanitize($_GET['f_when']);
+	}
 	//-- end filters
 	$more_params_pag .= $more_params;
 

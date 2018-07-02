@@ -87,6 +87,15 @@ $next_days = date("Y-m-d", mktime(null, null, null, date("m"), date("d") + NEXT_
 	</div>
 
 	<div class="control-group">
+		<label for="" class="control-label">Filtre rapide</label>
+			<a href="?f_when=nodate"><span class="badge">Sans date</span></a>
+			<a href="?f_when=expired"><span class="badge badge-alert-expired">En retard</span></a>
+			<a href="?f_when=today"><span class="badge badge-alert-today">Aujourd'hui</span></a>
+			<a href="?f_when=nextdays"><span class="badge badge-alert-next-days">Dans les <?php echo NEXT_DAYS; ?> prochains jours</span></a>
+			<a href="?f_when=later"><span class="badge badge-alert-later">Plus tard</span></a>
+	</div>
+
+	<div class="control-group">
 		<label for="" class="control-label"></label>
 		<input type="submit" class="btn btn-info" name="submitform" value="Filtrer">
 		<input type="button" class="btn" name="reset" value="Voir tout" onclick="location.href='alerts.php';">

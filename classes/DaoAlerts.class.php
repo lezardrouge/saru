@@ -153,6 +153,26 @@ class DaoAlerts
 			$sql .= " AND (alerts.alert_priority = :priority)";
 			$conditions['priority'] = intval($criteria['f_priority']);
 		}
+		if(isset($criteria['f_when']) && !empty($criteria['f_when'])) {
+			if($criteria['f_when'] == 'expired') {
+				$sql .= " AND (alerts.alert_date < :date)";
+				$conditions['date'] = date('Y-m-d');
+			} elseif($criteria['f_when'] == 'today') {
+				$sql .= " AND (alerts.alert_date = :date)";
+				$conditions['date'] = date('Y-m-d');
+			} elseif($criteria['f_when'] == 'nextdays') {
+				$next_days = date("Y-m-d", mktime(null, null, null, date("m"), date("d") + NEXT_DAYS, date("Y")));
+				$sql .= " AND (alerts.alert_date > :today AND alerts.alert_date <= :date)";
+				$conditions['today'] = date('Y-m-d');
+				$conditions['date'] = $next_days;
+			} elseif($criteria['f_when'] == 'later') {
+				$next_days = date("Y-m-d", mktime(null, null, null, date("m"), date("d") + NEXT_DAYS, date("Y")));
+				$sql .= " AND (alerts.alert_date > :date)";
+				$conditions['date'] = $next_days;
+			} elseif($criteria['f_when'] == 'nodate') {
+				$sql .= " AND (alerts.alert_date IS NULL)";
+			}
+		}
 
 		//-----------------------------
 		// sorting
