@@ -274,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_login` varchar(255) DEFAULT NULL,
   `user_pwd` varchar(255) DEFAULT NULL,
   `user_email` varchar(255) DEFAULT NULL,
+  `user_send_alerts` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
   `user_new_pwd` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `user_token` varchar(255) DEFAULT NULL
   PRIMARY KEY (`user_id`)
@@ -417,8 +418,8 @@ INSERT INTO `meeting_types` (`meeting_type_id`, `meeting_type_name`, `meeting_ty
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_lastname`, `user_firstname`, `user_login`, `user_pwd`, `user_email`, `user_new_pwd`, `user_token`) VALUES
-(1, 'Doe', 'John', 'saru', 'ff250145ce01e9f53848dbd155d4e0fa317bec04b04bfcae1629638f22f28f7653a4fab3b921b6ac3d5c1f41fed1356f3ef4380294706d019e91ae925ada739b', 'your.email@your-company.com', 1, NULL);
+INSERT INTO `users` (`user_id`, `user_lastname`, `user_firstname`, `user_login`, `user_pwd`, `user_email`, `user_send_alerts`, `user_new_pwd`, `user_token`) VALUES
+(1, 'Doe', 'John', 'saru', 'ff250145ce01e9f53848dbd155d4e0fa317bec04b04bfcae1629638f22f28f7653a4fab3b921b6ac3d5c1f41fed1356f3ef4380294706d019e91ae925ada739b', 1, 'your.email@your-company.com', 1, NULL);
 
 --
 -- Contenu de la table `user_account_relationships`

@@ -182,7 +182,11 @@ elseif($tpl == "form") {
 				'user_pwd'          => $sanitized_post['u_pwd'],
 				'user_new_pwd'      => 0,
 				'user_email'        => $sanitized_post['u_email'],
+				'user_send_alerts'  => 0,
 			);
+			if(isset($sanitized_post['u_alert'])) {
+				$data['user_send_alerts'] = $sanitized_post['u_alert'];
+			}
 			// perms
 			$perms_array = array();
 			if(isset($sanitized_post['access'])) {

@@ -80,7 +80,14 @@
 		</tr>
 		<tr>
 			<td>Email *</td>
-			<td><input type="text" name="u_email" value="<?php echo $user->getEmail(); ?>" size="30">
+			<td>
+				<input type="text" name="u_email" value="<?php echo $user->getEmail(); ?>" size="30">
+			</td>
+		</tr>
+		<tr>
+			<td>Reçoit les alertes</td>
+			<td>
+				<input type="checkbox" value="1" name="u_alert" <?php echo ($user->getSend_alerts() == 1)? "checked":""; ?>>
 			</td>
 		</tr>
 	</table>

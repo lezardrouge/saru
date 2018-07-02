@@ -316,6 +316,7 @@ class DaoUsers
 				`user_login`     = :login,
 				`user_pwd`       = :pwd,
 				`user_email`     = :email,
+				`user_send_alerts` = :alerts,
 				`user_new_pwd`   = :newpwd,
 				`user_token`     = :token");
 		$query_result = $query->execute(array(
@@ -324,6 +325,7 @@ class DaoUsers
 				'login'     => $user->getLogin(),
 				'pwd'       => Utils::hashPwd($user->getLogin(), $user->getPwd()),
 				'email'     => $user->getEmail(),
+				'alerts'    => $user->getSend_alerts(),
 				'newpwd'    => $user->getNew_pwd(),
 				'token'     => $user->getToken()
 			)
@@ -365,6 +367,7 @@ class DaoUsers
 				`user_login`     = :login,
 				%s
 				`user_email`     = :email,
+				`user_send_alerts` = :alerts,
 				`user_new_pwd`   = :newpwd,
 				`user_token`     = :token
 			WHERE user_id = :id";
@@ -373,6 +376,7 @@ class DaoUsers
 				'firstname' => $user->getFirstname(),
 				'login'     => $user->getLogin(),
 				'email'     => $user->getEmail(),
+				'alerts'    => $user->getSend_alerts(),
 				'newpwd'    => $user->getNew_pwd(),
 				'token'     => $user->getToken(),
 				'id'        => $user->getId()

@@ -214,7 +214,8 @@ class DaoAlerts
 				LEFT JOIN contacts ON (contacts.contact_id = alerts.alert_contact_id)
 				LEFT JOIN companies ON (companies.company_id = contacts.contact_company_id)
 			 WHERE  (alerts.alert_date = :today)
-				AND (alerts.alert_done = 0)";
+				AND (alerts.alert_done = 0)
+				AND (users.user_send_alerts = 1)";
 		$conditions = array('today' => $today);
 
 		$query = $pdo->prepare($sql);
@@ -222,6 +223,7 @@ class DaoAlerts
 
 		$alerts = $query->fetchAll(PDO::FETCH_OBJ);
 		$query->closeCursor();
+
 		return $alerts;
 	}
 

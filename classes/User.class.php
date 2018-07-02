@@ -43,6 +43,7 @@ class User
 	private $_login;
 	private $_pwd;
 	private $_email;
+	private $_send_alerts;
 	private $_new_pwd;
 	private $_token;
 	private $_access_perms;
@@ -89,6 +90,10 @@ class User
 	public function getEmail ()
 	{
 		return $this->_email;
+	}
+	public function getSend_alerts ()
+	{
+		return $this->_send_alerts;
 	}
 	public function getNew_pwd ()
 	{
@@ -148,6 +153,14 @@ class User
 	public function setEmail ($email)
 	{
 		$this->_email = $email;
+	}
+	public function setSend_alerts ($send)
+	{
+		$i_send = (int) $send;
+		if($i_send != 1) {
+			$i_send = 0;
+		}
+		$this->_send_alerts = $i_send;
 	}
 	public function setNew_pwd ($new_pwd)
 	{

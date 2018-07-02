@@ -85,6 +85,7 @@
 					<a href="?sort=login&order=asc<?php echo $more_params; ?>"><img src="images/order-asc.png" alt="Croissant"></a>
 					<a href="?sort=login&order=desc<?php echo $more_params; ?>"><img src="images/order-desc.png" alt="Décroissant"></a></span></th>
 			<th>Email</th>
+			<th>Statut alertes</th>
 		  </tr>
 <?php
 		$even_odd = TRUE;
@@ -107,6 +108,10 @@
 				<td><?php echo $user->getLastname(); ?> <?php echo $user->getFirstname(); ?></td>
 				<td><?php echo $user->getLogin(); ?></td>
 				<td><?php echo $user->getEmail() ;?></td>
+				<td class="action"><?php if ($user->getSend_alerts() == 0): ?>
+					<img src="images/alerte_mute.png" alt="Alerts suspendues">
+				<?php endif; ?>
+				</td>
 			</tr>
 <?php
 			$even_odd = ! $even_odd;
