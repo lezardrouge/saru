@@ -3,6 +3,7 @@ inc/config.php
 
 # log files
 files/log_*
+files/connection_logs_*
 
 # attachments files
 attachments/*
