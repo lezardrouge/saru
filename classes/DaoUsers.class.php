@@ -124,17 +124,23 @@ class DaoUsers
 	 * get users who have access to an account
 	 *
 	 * @param int $account_id
+	 * @param int $includeAdmin if admin users should be included in user list ; default false
 	 *
 	 * @return array users(id => name)
 	 */
-	public function getUsersFromAccount($account_id)
+	public function getUsersFromAccount($account_id, $includeAdmin = 0)
 	{
 		$users = array();
+		$sql = '';
+		if($includeAdmin !== 1) {
+			$sql = 'AND (user_isadmin = 0)';
+		}
 		$query = $this->_pdo->prepare("SELECT users.*
 			FROM users
 			LEFT JOIN user_account_relationships ON (rel_user_id = user_id)
-			WHERE rel_account_id = :account_id
-			ORDER BY user_lastname, user_firstname");
+			WHERE rel_account_id = :account_id "
+			. $sql
+			. " ORDER BY user_lastname, user_firstname");
 		$query->execute(array('account_id' => $account_id));
 		while($data = $query->fetch(PDO::FETCH_OBJ)) {
 			$users[$data->user_id] = $data->user_firstname . ' ' . $data->user_lastname;

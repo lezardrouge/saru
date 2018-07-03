@@ -168,9 +168,14 @@ if($tpl == "list") {
 	$contacts = $dao_contacts->getContactsById($contact_ids);
 
 	// users having an access to this account
+	if(MOD_ACCESS == 1) {
+		$current_user_isadmin = $session->getSessionData('isadmin');
+	} else {
+		$current_user_isadmin = 1;
+	}
 	$dao_users = new DaoUsers();
 	$account_id = $session->getSessionData('account');
-	$users = $dao_users->getUsersFromAccount($account_id);
+	$users = $dao_users->getUsersFromAccount($account_id, $current_user_isadmin);
 
 	//---------------------------------
 	// additional scripts
@@ -213,9 +218,14 @@ elseif($tpl == "form" || $tpl == "form_s") {
 	$current_user_id = $session->getSessionData('user_id');
 	// to assign an alert to another user
 	if(Access::userCanAccess('alert_assign', false)) {
+		if(MOD_ACCESS == 1) {
+			$current_user_isadmin = $session->getSessionData('isadmin');
+		} else {
+			$current_user_isadmin = 1;
+		}
 		$dao_users = new DaoUsers();
 		$account_id = $session->getSessionData('account');
-		$users = $dao_users->getUsersFromAccount($account_id);
+		$users = $dao_users->getUsersFromAccount($account_id, $current_user_isadmin);
 	}
 
 	if(isset($_POST['tpl'])) {

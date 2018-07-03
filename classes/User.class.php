@@ -46,6 +46,7 @@ class User
 	private $_send_alerts;
 	private $_new_pwd;
 	private $_token;
+	private $_isadmin;
 	private $_access_perms;
 	private $_access_perm_ids;
 	private $_account_perms;
@@ -103,6 +104,10 @@ class User
 	{
 		return $this->_token;
 	}
+	public function getIsadmin ()
+	{
+		return $this->_isadmin;
+	}
 	public function getAccess_perms()
 	{
 		$dao_access = new Access();
@@ -132,7 +137,9 @@ class User
 		$id = (int) $id;
 	    if ($id > 0) {
 			$this->_id = $id;
-	    }
+	    } else {
+			$this->_id = 0;
+		}
 	}
 	public function setLastname ($lastname)
 	{
@@ -174,6 +181,10 @@ class User
 	{
 		$this->_token = $token;
 	}
+	public function setIsadmin ($isAdmin)
+	{
+		$this->_isadmin = intval($isAdmin);
+	}
 	public function setAccess_perms ($perms)
 	{
 		if(! is_array($perms)) {
@@ -208,7 +219,7 @@ class User
 	 * object hydration
 	 * please pay attention : in DB, fields are prefixed, so you have to del the prefix first
 	 *
-	 * @param object $data
+	 * @param array $data
 	 */
 	public function hydrate($data)
 	{
