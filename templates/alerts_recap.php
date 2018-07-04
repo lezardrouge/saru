@@ -109,8 +109,8 @@ if( ! defined('LOCAL_PATH')) { exit; }
 			<img src="images/alert_p1.png" alt="priority" class="icon">
 		<?php endif;
 			echo $alert->getDate_format(); ?> :
-			<?php echo $alert->getContact()->getFullname(); ?>
-			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
+			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link"><?php echo $alert->getContact()->getFullname(); ?>
+			<img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
 			<a href="alerts.php?tpl=form&alert_id=<?php echo $alert->getId(); ?>"><img src="images/edit.png" alt="Modifier" title="Modifier" class="icon"></a>
 			<a href="alerts.php?tpl=done&alert_id=<?php echo $alert->getId(); ?>&<?php echo TOKEN_PREFIX; ?>token=<?php echo $session->getSessionData('token'); ?>"><img src="images/checked.png" alt="Fait" title="Fait" class="icon"></a>
 			<br>
@@ -132,8 +132,10 @@ if( ! defined('LOCAL_PATH')) { exit; }
 		<div class="alert-home"><?php if($alert->getPriority() == 1): ?>
 			<img src="images/alert_p1.png" alt="priority" class="icon">
 		<?php endif;
-			echo $alert->getDate_format(); ?> : <?php echo $alert->getContact()->getFullname(); ?>
-			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
+			echo $alert->getDate_format(); ?> :
+			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link">
+			<?php echo $alert->getContact()->getFullname(); ?>
+			<img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
 			<a href="alerts.php?tpl=form&alert_id=<?php echo $alert->getId(); ?>"><img src="images/edit.png" alt="Modifier" title="Modifier" class="icon"></a>
 			<a href="alerts.php?tpl=done&alert_id=<?php echo $alert->getId(); ?>&<?php echo TOKEN_PREFIX; ?>token=<?php echo $session->getSessionData('token'); ?>"><img src="images/checked.png" alt="Fait" title="Fait" class="icon"></a>
 			<br>
@@ -159,8 +161,9 @@ if( ! defined('LOCAL_PATH')) { exit; }
 		<div class="alert-home"><?php if($alert->getPriority() == 1): ?>
 			<img src="images/alert_p1.png" alt="priority" class="icon">
 		<?php endif;
-			echo $alert->getDate_format(); ?> : <?php echo $alert->getContact()->getFullname(); ?>
-			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
+			echo $alert->getDate_format(); ?> :
+			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link"><?php echo $alert->getContact()->getFullname(); ?>
+			<img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
 			<a href="alerts.php?tpl=form&alert_id=<?php echo $alert->getId(); ?>"><img src="images/edit.png" alt="Modifier" title="Modifier" class="icon"></a>
 			<a href="alerts.php?tpl=done&alert_id=<?php echo $alert->getId(); ?>&<?php echo TOKEN_PREFIX; ?>token=<?php echo $session->getSessionData('token'); ?>"><img src="images/checked.png" alt="Fait" title="Fait" class="icon"></a>
 			<br>
@@ -182,8 +185,9 @@ if( ! defined('LOCAL_PATH')) { exit; }
 		<div class="alert-home"><?php if($alert->getPriority() == 1): ?>
 			<img src="images/alert_p1.png" alt="priority" class="icon">
 		<?php endif;
-			echo $alert->getDate_format(); ?> : <?php echo $alert->getContact()->getFullname(); ?>
-			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
+			echo $alert->getDate_format(); ?> :
+			<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link"><?php echo $alert->getContact()->getFullname(); ?>
+			<img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
 			<a href="alerts.php?tpl=form&alert_id=<?php echo $alert->getId(); ?>"><img src="images/edit.png" alt="Modifier" title="Modifier" class="icon"></a>
 			<a href="alerts.php?tpl=done&alert_id=<?php echo $alert->getId(); ?>&<?php echo TOKEN_PREFIX; ?>token=<?php echo $session->getSessionData('token'); ?>"><img src="images/checked.png" alt="Fait" title="Fait" class="icon"></a>
 			<br>
@@ -215,12 +219,12 @@ if( ! defined('LOCAL_PATH')) { exit; }
 			<?php if($alert->getPriority() == 1): ?>
 				<img src="images/alert_p1.png" alt="priority" class="icon">
 			<?php endif; ?>
-				<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
+				<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link"><img src="images/detail.png" alt="Accéder à la fiche" title="Accéder à la fiche" class="icon"></a>
 				<a href="alerts.php?tpl=form&alert_id=<?php echo $alert->getId(); ?>"><img src="images/edit.png" alt="Modifier" title="Modifier" class="icon"></a>
 				<a href="alerts.php?tpl=done&alert_id=<?php echo $alert->getId(); ?>&<?php echo TOKEN_PREFIX; ?>token=<?php echo $session->getSessionData('token'); ?>"><img src="images/checked.png" alt="Fait" title="Fait" class="icon"></a>
 			</div>
 			<div class="box-alert-note-content">
-				<?php echo $alert->getContact()->getFullname(); ?>
+				<a href="contacts.php?tpl=recap&contact_id=<?php echo $alert->getContact_id(); ?>" class="invisible-link"><?php echo $alert->getContact()->getFullname(); ?></a>
 				<br>
 				<?php echo Utils::n2br($alert->getComments()); ?>
 			<?php if(count($users) > 1): ?>
