@@ -55,17 +55,22 @@ class Files
 			'application/octet-stream',
 			'application/x-csv', 'text/x-csv', 'application/csv',
 			'application/excel', 'application/vnd.msexcel', 'application/vnd.ms-excel',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'application/vnd.oasis.opendocument.spreadsheet',
 			'application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip',
 			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/msword',
 			'application/excel', 'application/vnd.ms-excel', 'application/msexcel',
 			'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.presentation',
 			'application/powerpoint', 'application/vnd.ms-powerpoint',
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			'text/richtext','text/rtf',
 			'application/pdf', 'application/x-download','message/rfc822',
 			'application/x-zip', 'application/zip', 'application/x-zip-compressed',
 			'application/x-gtar', 'application/x-gzip', 'application/x-tar','application/x-tar', 'application/x-gzip-compressed',
 			'image/bmp', 'image/x-windows-bmp',
-			"image/gif", "image/jpg", "image/jpeg", "image/png", 'image/x-png');
+			"image/gif", "image/jpg", "image/jpeg", "image/png", 'image/x-png',
+			'application/vnd.mindjet.mindmanager', 'application/xmind', 'application/x-freemind', 'application/freemind', 'application/x-freeplane'
+		);
 
 
 	public function __construct()
