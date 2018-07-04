@@ -209,7 +209,7 @@ class Session
 			// delete previous DB session information
 			$this->deleteSession();
 			// create new DB session
-			$created = $this->createSessionInfo($user->getId());
+			$created = $this->createSessionInfo($user);
 			$log_info = " login ; username: " . $username . " ; IP: " . Utils::getIp()
 					. " ; UserAgent: " . Utils::getUserAgent();
 			Utils::connectionLogs($log_info);
@@ -256,16 +256,17 @@ class Session
 	/**
 	 * create basic session information for a user
 	 *
-	 * @param int $user_id
+	 * @param object User
 	 *
 	 */
-	private function createSessionInfo ($user_id)
+	private function createSessionInfo ($user)
 	{
 		$access = new Access();
 		// get user's access rights on accounts
-		$accounts = $access->getAccountsForUser($user_id);
+		$accounts = $access->getAccountsForUser($user->getId());
 		$this->_session_data = array(
-			'user_id'              => $user_id,
+			'user_id'              => $user->getId(),
+			'isadmin'              => $user->getIsadmin(),
 			'sess_accounts_array'  => $accounts,
 			'sess_accounts_list'   => implode(',', $accounts) // as list, for sql queries
 		);
