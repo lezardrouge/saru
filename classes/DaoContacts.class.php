@@ -541,6 +541,9 @@ class DaoContacts
 		// delete meetings
 		$dao_meetings = new DaoMeetings();
 		$dao_meetings->delContactMeetings($contact->getId());
+		// delete alerts
+		$dao_alerts = new DaoAlerts();
+		$dao_alerts->delContactAlerts($contact->getId());
 		// delete contact infos
 		$dao_metas_rel = new DaoContactMetaRelationships();
 		$dao_metas_rel->deleteContactMetas($contact->getId());
