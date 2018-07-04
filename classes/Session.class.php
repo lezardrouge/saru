@@ -95,7 +95,7 @@ class Session
 	 * retrieve a stored session information
 	 * method & code borrowed to Code Igniter (http://codeigniter.com)
 	 *
-	 * @param string $key, the name of the session information to get ; if empty, all
+	 * @param string $key the name of the session information to get ; if empty, all
 	 *
 	 * @return mixed ; returns false if $key does not exists
 	 */
@@ -142,8 +142,8 @@ class Session
 		$session = $this->getSession();
 		$last = $session->session_last_activity;
 		$now = time();
-		// if last activity is more than SESSION_EXPIRE, the session is not valid
-		if(($last + SESSION_EXPIRE) < $now) {
+		// if MOD ACCESS activated and last activity is more than SESSION_EXPIRE, the session is not valid
+		if(MOD_ACCESS === 1 && (($last + SESSION_EXPIRE) < $now)) {
 			// message
 			$_SESSION['sess_message'] = 'Votre session a expiré.';
 			$_SESSION['sess_message_type'] = TYPE_MSG_ERROR;
