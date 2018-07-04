@@ -399,7 +399,8 @@ INSERT INTO `contact_types` (`contact_type_id`, `contact_type_name`, `contact_ty
 (4, 'sous-traitant', 0, 1),
 (5, 'fournisseur', 0, 1),
 (6, 'partenaire', 0, 1),
-(7, 'autre', 0, 1);
+(7, 'autre', 0, 1),
+(8, 'prescripteur', 0, 1);
 
 --
 -- Contenu de la table `meeting_types`
