@@ -1,1 +1,15 @@
-php_flag engine off
+# secure htaccess file
+<Files .htaccess>
+	order allow,deny
+	deny from all
+</Files>
+
+# disable direct access to files
+<FilesMatch ".(sql|csv|zip)$">
+	Order Allow,Deny
+	Deny from all
+</FilesMatch>
+
+
+# disable directory browsing
+Options All -Indexes

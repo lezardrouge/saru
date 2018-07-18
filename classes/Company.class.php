@@ -328,7 +328,8 @@ class Company
 			}
 		}
 
-		$filename = $file_class->default_dir . 'export_recherche_' . date('Ymd_His') . '.csv';
+		$random = Utils::generateRandomString();
+		$filename = $file_class->default_dir . 'export_recherche_' . date('Ymd_His') . "_" . $random . '.csv';
 		$res = $file_class->writeFile($filename, $header . $buffer);
 		if($res !== false) {
 			return $filename;

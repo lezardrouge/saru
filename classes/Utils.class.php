@@ -516,7 +516,9 @@ class Utils
 		}
 		$fileClass = new Files();
 		$log_file = LOCAL_PATH . 'files/log_' . date('Ym');
+		$fileClass->chmodFile($log_file, READ_WRITE);
 		$fileClass->writeFile($log_file, $buffer);
+		$fileClass->chmodFile($log_file, NONE);
 	}
 
 
@@ -530,7 +532,9 @@ class Utils
 		$buffer = "\n" . date('Y-m-d H:i:s') . $info;
 		$fileClass = new Files();
 		$log_file = LOCAL_PATH . 'files/connection_logs_' . date('Ym');
+		$fileClass->chmodFile($log_file, READ_WRITE);
 		$fileClass->writeFile($log_file, $buffer);
+		$fileClass->chmodFile($log_file, NONE);
 	}
 
 
@@ -554,22 +558,22 @@ class Utils
 	 * TODO : change mysql stuff by pdo
 	 * @credits David Walsh <http://davidwalsh.name/backup-mysql-database-php>
 	 *
-	 * @param string $tables, tables to backup
+	 * @param string $tables	tables to backup
 	 *
 	 * @return
 	 */
 	public static function backup_tables($tables = '*')
 	{
 		$buffer = '';
-		$link = mysql_connect(DB_HOST, DB_USER, DB_PWD);
-		mysql_select_db(DB_NAME, $link);
+		$link = mysqli_connect(DB_HOST, DB_USER, DB_PWD);
+		mysqli_select_db($link, DB_NAME);
 
 		//get all of the tables
 		if($tables == '*')
 		{
 			$tables = array();
-			$result = mysql_query('SHOW TABLES');
-			while($row = mysql_fetch_row($result))
+			$result = mysqli_query($link, 'SHOW TABLES');
+			while($row = mysqli_fetch_row($result))
 			{
 				$tables[] = $row[0];
 			}
@@ -582,16 +586,16 @@ class Utils
 		//cycle through
 		foreach($tables as $table)
 		{
-			$result = mysql_query('SELECT * FROM '.$table);
-			$num_fields = mysql_num_fields($result);
+			$result = mysqli_query($link, 'SELECT * FROM '.$table);
+			$num_fields = mysqli_num_fields($result);
 
 			$buffer.= 'DROP TABLE IF EXISTS '.$table.';';
-			$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
+			$row2 = mysqli_fetch_row(mysqli_query($link, 'SHOW CREATE TABLE '.$table));
 			$buffer.= "\n\n".$row2[1].";\n\n";
 
 			for ($i = 0; $i < $num_fields; $i++)
 			{
-				while($row = mysql_fetch_row($result))
+				while($row = mysqli_fetch_row($result))
 				{
 					$buffer.= 'INSERT INTO '.$table.' VALUES(';
 					for($j=0; $j<$num_fields; $j++)
@@ -609,7 +613,10 @@ class Utils
 
 		//save file
 		$files = new Files();
-		$files->writeFile(LOCAL_PATH . 'files/db-backup_' . date('Ymd-His') . '.sql', $buffer);
+		$randomString = self::generateRandomString();
+		$filename = 'db-backup_' . date('Ymd-Hi') . "_" . $randomString . '.sql';
+		$files->writeFile(LOCAL_PATH . 'files/' . $filename, $buffer);
+		$files->chmodFile(LOCAL_PATH . 'files/' . $filename);
 	}
 
 
@@ -724,6 +731,18 @@ class Utils
 	{
 		$token = md5($user->getId() . uniqid(rand(), true) . $user->getEmail());
 		return $token;
+	}
+
+	
+	/**
+	 * generate a 40 chars length random string
+	 *
+	 * @return string
+	 */
+	public static function generateRandomString()
+	{
+		$random = sha1(uniqid() . microtime());
+		return $random;
 	}
 
 

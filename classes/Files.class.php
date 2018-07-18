@@ -229,7 +229,8 @@ class Files
 	public function uploadCsv($uploaded_file)
 	{
 		$path = LOCAL_PATH . $this->default_dir;
-		$new_name = 'import_contacts_' . date('YmdHis');
+		$random = Utils::generateRandomString();
+		$new_name = 'import_contacts_' . date('YmdHis') . "_" . $random;
 		$result = $this->upload($uploaded_file, $path, $this->csv_mimes, $new_name);
 		return $result;
 	}
@@ -295,6 +296,34 @@ class Files
 	{
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		return finfo_file($finfo, $file);
+	}
+
+
+	/**
+	 * change permissions on a file
+	 *
+	 * @param string $file	the file path & name ; must be accessible via the server's filesystem (no remote file)
+	 * @param string $perms	permissions ; possible values (constants) : READ_WRITE|READ|WRITE|NONE
+	 */
+	public function chmodFile($file, $perms)
+	{
+		if(file_exists($file)) {
+			switch ($perms) {
+				case READ_WRITE:
+					chmod($file, 0660);
+					break;
+				case READ:
+					chmod($file, 0440);
+					break;
+				case WRITE:
+					chmod($file, 0330);
+					break;
+				case NONE:
+				default:
+					chmod($file, 0000);
+					break;
+			}
+		}
 	}
 
 
