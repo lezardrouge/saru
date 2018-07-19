@@ -164,10 +164,10 @@ $bgcolor = ($even_odd ? "even":"odd");
 				<?php echo $contact->getLastname(); ?> <?php echo $contact->getFirstname(); ?>
 			<?php endif; ?>
 			<br>
-			<?php if(isset($contact_infos[$contact->getId()][1])): echo $contact_infos[$contact->getId()][1]; endif; ?><br>
+			<?php if(isset($contact_infos[$contact->getId()][1])): echo $contact_infos[$contact->getId()][1] . "<br>"; endif; ?>
 			<?php if(isset($contact_infos[$contact->getId()][4])): ?>
-				<a href='mailto:<?php echo $contact_infos[$contact->getId()][4]; ?>'><?php echo $contact_infos[$contact->getId()][4]; ?></a>
-			<?php endif; ?><br>
+			<a href='mailto:<?php echo $contact_infos[$contact->getId()][4]; ?>'><?php echo $contact_infos[$contact->getId()][4]; ?></a><br>
+			<?php endif; ?>
 			<?php if(isset($contact_infos[$contact->getId()][2])): echo $contact_infos[$contact->getId()][2]; ?><br><?php endif; ?>
 			<?php if(isset($contact_infos[$contact->getId()][3])): echo $contact_infos[$contact->getId()][3]; endif; ?>
 			</td>
