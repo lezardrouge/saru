@@ -639,7 +639,7 @@ class Contact
 					$company_id = 0;
 					if(trim($content[0]) != '') {
 						// check if company exists
-						$exists = $dao_company->getCompanyByName(Utils::protectImportedData(trim($content[0]), $to_encoding, $from_encoding), $account_id);
+						$exists = $dao_company->getCompanyByName(Utils::protectImportedData($content[0], $to_encoding, $from_encoding), $account_id);
 						// if don't exists, create it
 						if($exists === false) {
 							$data_cie = array(
@@ -647,7 +647,7 @@ class Contact
 								'company_type_id'     => 1,
 								'company_date_add'    => date('Y-m-d'),
 								'company_date_update' => date('Y-m-d'),
-								'company_name'        => Utils::protectImportedData(trim($content[0]), $to_encoding, $from_encoding),
+								'company_name'        => Utils::protectImportedData($content[0], $to_encoding, $from_encoding),
 								'company_comments'    => (isset($content[$index_company_comment])? Utils::protectImportedData($content[$index_company_comment], $to_encoding, $from_encoding):''),
 								'company_meta'        => array(),
 								'company_active'      => 1

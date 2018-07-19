@@ -75,15 +75,16 @@ class Utils
 	/**
 	 * sanitize and encode an imported data
 	 *
-	 * @param string $string, the string to protect
-	 * @param string $to_encoding, the new encoding
-	 * @param string $from_encoding, the original encoding
+	 * @param string $string		the string to protect
+	 * @param string $to_encoding	the new encoding
+	 * @param string $from_encoding	the original encoding
 	 *
 	 * @return string $sanitized
 	 */
 	public static function protectImportedData($string, $to_encoding, $from_encoding)
 	{
-		$converted = Utils::convertEncoding($string, $to_encoding, $from_encoding);
+		$trimmed = trim ($string);
+		$converted = Utils::convertEncoding($trimmed, $to_encoding, $from_encoding);
 		$sanitized = Utils::sanitize($converted);
 		return $sanitized;
 	}
@@ -733,7 +734,7 @@ class Utils
 		return $token;
 	}
 
-	
+
 	/**
 	 * generate a 40 chars length random string
 	 *
