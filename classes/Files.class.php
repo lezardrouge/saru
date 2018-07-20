@@ -328,6 +328,38 @@ class Files
 
 
 	/**
+	 * zip files
+	 *
+	 * @param string $zipname	the zip file name
+	 * @param array $files		array of files to add to zip
+	 *
+	 * @return boolean
+	 */
+	public function zipFile($zipname, $files)
+	{
+		$zip = new ZipArchive();
+		if ($zip->open( LOCAL_PATH . 'files/' . $zipname, ZipArchive::CREATE) === true) {
+			$i = 0;
+			foreach($files as $filename)
+			{
+				if(file_exists(LOCAL_PATH . 'files/' . $filename)) {
+					$zip->addFile(LOCAL_PATH . 'files/' . $filename, $filename);
+					$i++;
+				} else {
+					Utils::log("Creating zip : file not found : " . $filename);
+				}
+			}
+			$zip->close();
+			Utils::log($i . ' files added');
+			return true;
+		} else {
+			Utils::log("Error : impossible to create " . $zipname);
+			return false;
+		}
+	}
+
+
+	/**
 	 * create a directory if does not exist
 	 *
 	 * @param str $path

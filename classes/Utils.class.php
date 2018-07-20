@@ -561,7 +561,7 @@ class Utils
 	 *
 	 * @param string $tables	tables to backup
 	 *
-	 * @return
+	 * @return void
 	 */
 	public static function backup_tables($tables = '*')
 	{
@@ -587,37 +587,54 @@ class Utils
 		//cycle through
 		foreach($tables as $table)
 		{
-			$result = mysqli_query($link, 'SELECT * FROM '.$table);
+			$result = mysqli_query($link, 'SELECT * FROM ' . $table);
 			$num_fields = mysqli_num_fields($result);
 
-			$buffer.= 'DROP TABLE IF EXISTS '.$table.';';
-			$row2 = mysqli_fetch_row(mysqli_query($link, 'SHOW CREATE TABLE '.$table));
-			$buffer.= "\n\n".$row2[1].";\n\n";
+			$buffer .= 'DROP TABLE IF EXISTS ' . $table . ';';
+			$row2 = mysqli_fetch_row(mysqli_query($link, 'SHOW CREATE TABLE ' . $table));
+			$buffer .= "\n\n" . $row2[1] . ";\n\n";
 
 			for ($i = 0; $i < $num_fields; $i++)
 			{
 				while($row = mysqli_fetch_row($result))
 				{
-					$buffer.= 'INSERT INTO '.$table.' VALUES(';
-					for($j=0; $j<$num_fields; $j++)
+					$buffer.= 'INSERT INTO ' . $table . ' VALUES(';
+					for($j = 0; $j < $num_fields; $j++)
 					{
-						$row[$j] = addslashes($row[$j]);
-						$row[$j] = preg_replace("/\\n/","\\\\n",$row[$j]);
-						if (isset($row[$j])) { $buffer.= '"'.$row[$j].'"' ; } else { $buffer.= '""'; }
-						if ($j<($num_fields-1)) { $buffer.= ','; }
+						if(array_key_exists($j, $row))
+						{
+							if($row[$j] === NULL) {
+								$buffer .= 'NULL';
+							} else {
+								$row[$j] = addslashes($row[$j]);
+								$row[$j] = preg_replace("/\\n/","\\\\n", $row[$j]);
+								$buffer.= '"' . $row[$j] . '"' ;
+							}
+						} else {
+							$buffer .= '""';
+						}
+						if ($j < ($num_fields-1)) {
+							$buffer .= ',';
+						}
 					}
-					$buffer.= ");\n";
+					$buffer .= ");\n";
 				}
 			}
-			$buffer.="\n\n\n";
+			$buffer .= "\n\n\n";
 		}
 
 		//save file
 		$files = new Files();
 		$randomString = self::generateRandomString();
 		$filename = 'db-backup_' . date('Ymd-Hi') . "_" . $randomString . '.sql';
-		$files->writeFile(LOCAL_PATH . 'files/' . $filename, $buffer);
-		$files->chmodFile(LOCAL_PATH . 'files/' . $filename);
+		$zipname = $filename . '.zip';
+		$path = LOCAL_PATH . 'files/';
+		$filepath = $path . $filename;
+		$zippath = $path . $zipname;
+		$files->writeFile($filepath, $buffer);
+		$files->zipFile($zipname, array($filename));
+		$files->chmodFile($zippath, NONE);
+		$files->deleteFile($filepath);
 	}
 
 
