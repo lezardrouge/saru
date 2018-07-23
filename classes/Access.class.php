@@ -136,9 +136,11 @@ class Access
 					break;
 				case "meeting":
 					$dao_meetings = new DaoMeetings();
-					$meeting = $dao_meetings->getMeeting($object_id);
-					if ($meeting->getContact()->getAccount_id() == $account_id) {
-						return true;
+					if($dao_meetings->meetingExists($object_id)) {
+						$meeting = $dao_meetings->getMeeting($object_id);
+						if ($meeting->getContact()->getAccount_id() == $account_id) {
+							return true;
+						}
 					}
 					break;
 				case "alert":

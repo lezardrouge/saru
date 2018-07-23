@@ -186,7 +186,7 @@ class DaoMeetings
 		$meeting = $query->fetch(PDO::FETCH_OBJ);
 		$query->closeCursor();
 		if( ! $meeting) {
-			return false;
+			return new Meeting();
 		}
 		return new Meeting($meeting);
 	}
@@ -285,7 +285,7 @@ class DaoMeetings
 	/**
 	 * delete a meeting
 	 *
-	 * @param int $meeting_id
+	 * @param Meeting $meeting
 	 *
 	 * @return void
 	 */
