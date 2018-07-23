@@ -122,7 +122,7 @@
 			<?php endif; ?>
 			<?php if(Access::userCanAccess('contact_import', false) || Access::userCanAccess('contact_export', false)): ?>
 					<li<?php if(isset($current) && $current == 'help'): ?> class="active"<?php endif; ?>>
-						<a href="index?tpl=help"><img src="images/information.png" alt="[]" class="icon">Aide pour l'import/export</a>
+						<a href="index.php?tpl=help"><img src="images/information.png" alt="[]" class="icon">Aide pour l'import/export</a>
 					</li>
 			<?php endif; ?>
 				</ul>
