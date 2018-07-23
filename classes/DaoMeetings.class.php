@@ -77,8 +77,12 @@ class DaoMeetings
 		// filters
 		//-----------------------------
 		$conditions = array();
-		// always work with current account
-		$sql .= ' WHERE contacts.contact_account_id = ' . $this->_session->getSessionData('account');
+		// always work with current account, except for admin deletion
+		if(isset($criteria['f_account_all']) && $criteria['f_account_all'] == 1) {
+			$sql .= ' WHERE 1 = 1 ';
+		} else {
+			$sql .= ' WHERE contacts.contact_account_id = ' . $this->_session->getSessionData('account');
+		}
 		if ( ! empty($criteria)) {
 			if(isset($criteria['f_ctc']) && ! empty($criteria['f_ctc'])) {
 				$sql .= " AND (contacts.contact_id = :ctc)";
@@ -311,7 +315,7 @@ class DaoMeetings
 	 */
 	public function delContactMeetings($contact_id)
 	{
-		$criteria = array('f_ctc' => $contact_id);
+		$criteria = array('f_ctc' => $contact_id, 'f_account_all' => 1);
 		$meetings = $this->getList($criteria, 0, 0);
 		foreach ($meetings['results'] as $meeting) {
 			$this->delMeeting($meeting);

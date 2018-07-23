@@ -336,7 +336,7 @@ class DaoAttachments
 	/**
 	 * delete an attachment
 	 *
-	 * @param int $attachment_id
+	 * @param Attachment $attachment
 	 *
 	 * @return void
 	 */

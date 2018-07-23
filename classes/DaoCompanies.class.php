@@ -499,7 +499,7 @@ class DaoCompanies
 	/**
 	 * delete a company
 	 *
-	 * @param int $company_id
+	 * @param Company $company
 	 *
 	 * @return void
 	 */
@@ -520,7 +520,7 @@ class DaoCompanies
 		$query->closeCursor();
 		// delete attachments
 		$dao_attachments = new DaoAttachments();
-		$dao_attachments->delContactAttachments($company->getId());
+		$dao_attachments->delCompanyAttachments($company->getId());
 	 }
 
 

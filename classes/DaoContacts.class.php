@@ -532,8 +532,8 @@ class DaoContacts
 	/**
 	 * delete a contact
 	 *
-	 * @param int $contact_id
-	 *
+	 * @param Contact $contact
+	 * 
 	 * @return void
 	 */
 	public function delContact(Contact $contact)
