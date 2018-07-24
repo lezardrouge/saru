@@ -132,6 +132,12 @@ if($tpl == "list") {
 	$more_params_pag .= $more_params;
 
 	$users_list = $dao->getList($criteria, NB_RECORDS, $dep);
+	$user_ids = array();
+	foreach($users_list['results'] as $user) {
+		array_push($user_ids, $user->getId());
+	}
+	$access = new Access();
+	$accounts = $access->getAccountsbyUsers($user_ids);
 
 	//---------------------------------
 	// additional scripts

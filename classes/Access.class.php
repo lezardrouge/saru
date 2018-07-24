@@ -312,6 +312,47 @@ class Access
 
 
 	/**
+	 * get accounts for a list of users
+	 *
+	 * @param array $user_ids an array of ids
+	 *
+	 * @return array (user_id => array(account_id => account_name))
+	 */
+	public function getAccountsbyUsers($user_ids)
+	{
+		$sql = "SELECT rel_user_id, rel_account_id, account_name
+			FROM user_account_relationships
+				LEFT JOIN accounts ON (accounts.account_id = user_account_relationships.rel_account_id)
+			WHERE (rel_user_id IN (:user_ids)
+				OR account_user_id IN (:user_ids))
+				AND account_active = 1
+			ORDER BY account_name";
+		if( ! is_array($user_ids)) {
+			$user_ids = explode(',', $user_ids);
+		}
+		$tmp = array();
+		$i = 1;
+		foreach($user_ids as $user_id) {
+			$tmp[] = ":user_id_" . $i;
+			$conditions['user_id_' . $i] = $user_id;
+			$i++;
+		}
+		$tmp2 = implode(',', $tmp);
+		$sql2 = str_replace(':user_ids', $tmp2, $sql);
+
+		$query = $this->_pdo->prepare($sql2);
+		$query->execute($conditions);
+
+		$accounts = array();
+		while($data = $query->fetch(PDO::FETCH_OBJ)) {
+			$accounts[$data->rel_user_id][$data->rel_account_id] = $data->account_name;
+		}
+		$query->closeCursor();
+		return $accounts;
+	}
+
+
+	/**
 	 * delete access rights for a user
 	 *
 	 * @param int $user_id
