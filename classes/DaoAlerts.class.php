@@ -55,9 +55,9 @@ class DaoAlerts
 	/**
 	 * get list of alerts, possibly paginated, ordered and filtered
 	 *
-	 * @param array $criteria, search & order criteria
-	 * @param int $num, number of records to fetch ; default : NB_RECORDS
-	 * @param int $limit, number from which to fetch ; default : 0
+	 * @param array $criteria search & order criteria
+	 * @param int $num        number of records to fetch ; default : NB_RECORDS
+	 * @param int $limit      number from which to fetch ; default : 0
 	 *
 	 * @return
 	 */

@@ -189,7 +189,7 @@ class Company
 	/**
 	 * fetch all companies as an array
 	 *
-	 * @param bool $default, if true add default option for select ; TRUE|FALSE ; default FALSE
+	 * @param bool $default if true add default option for select ; TRUE|FALSE ; default FALSE
 	 *
 	 * @return array $companies
 	 */

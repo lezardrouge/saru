@@ -426,8 +426,8 @@ class DaoCompanies
 	/**
 	 * update companies
 	 *
-	 * @param array $updates, attributes to update
-	 * @param array $where, conditions to match
+	 * @param array $updates attributes to update
+	 * @param array $where conditions to match
 	 */
 	function updateCompanyBy($updates, $where)
 	{

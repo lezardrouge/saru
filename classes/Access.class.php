@@ -90,9 +90,9 @@ class Access
 	/**
 	 * check if a user can access the object he's trying to access
 	 *
-	 * @param string $object_type	contact|account|company|meeting|alert
-	 * @param int    $object_id		the object id
-	 * @param bool   $redirection	true if user is redirected in case of violation access
+	 * @param string $object_type	 contact|account|company|meeting|alert
+	 * @param int    $object_id		 the object id
+	 * @param bool   $redirection	 true if user is redirected in case of violation access
 	 *
 	 * @return mixed bool|void, true if user can access, false if user cannot access and redirection is set to false, else void (redirection)
 	 */
@@ -172,8 +172,8 @@ class Access
 	/**
 	 * check if a user has access to a component
 	 *
-	 * @param int $user_id	the user_id
-	 * @param string $component	the component name
+	 * @param int $user_id	     the user_id
+	 * @param string $component	 the component name
 	 *
 	 * @return boolean
 	 */

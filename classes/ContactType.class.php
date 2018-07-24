@@ -46,7 +46,7 @@ class ContactType
 	/**
 	 * constructor
 	 *
-	 * @param array $data, for hydration
+	 * @param array $data for hydration
 	 */
 	public function __construct($data = array())
 	{
@@ -127,7 +127,7 @@ class ContactType
 	/**
 	 * fetch all types as an array
 	 *
-	 * @param bool $default, if true add default option for select ; TRUE|FALSE ; default FALSE
+	 * @param bool $default if true add default option for select ; TRUE|FALSE ; default FALSE
 	 *
 	 * @return array $contact_types
 	 */

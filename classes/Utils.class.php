@@ -39,9 +39,9 @@ class Utils
 	/**
 	 * escape a filename
 	 *
-	 * @param str $str, input string
+	 * @param str $str	input string
 	 *
-	 * @return str $str, safe string
+	 * @return str $str	safe string
 	 */
 	public static function escapeFilename($str)
 	{
@@ -58,9 +58,9 @@ class Utils
 	/**
 	 * protects posted data
 	 *
-	 * @param str $str, input string
+	 * @param str $str	input string
 	 *
-	 * @return str $str, safe string
+	 * @return str $str	safe string
 	 */
 	public static function protege($str)
 	{
@@ -75,9 +75,9 @@ class Utils
 	/**
 	 * sanitize and encode an imported data
 	 *
-	 * @param string $string		the string to protect
-	 * @param string $to_encoding	the new encoding
-	 * @param string $from_encoding	the original encoding
+	 * @param string $string        the string to protect
+	 * @param string $to_encoding   the new encoding
+	 * @param string $from_encoding the original encoding
 	 *
 	 * @return string $sanitized
 	 */
@@ -206,8 +206,8 @@ class Utils
 	/**
 	 * split a date into an array
 	 *
-	 * @param string $datetime, the date with or without a time
-	 * @param string $format, the input format : iso|fr
+	 * @param string $datetime the date with or without a time
+	 * @param string $format   the input format : iso|fr
 	 *
 	 * @return array $arrayDatetime(Y,m,d,h)
 	 */
@@ -260,7 +260,7 @@ class Utils
 	 * check if a date is a valid date
 	 *
 	 * @param string $date
-	 * @param string $format : iso|fr
+	 * @param string $format iso|fr
 	 *
 	 * @return bool
 	 */
@@ -324,9 +324,9 @@ class Utils
 	/**
 	 * display pagination on lists
 	 *
-	 * @param int $num_rows, total number of resultats for query (w/out limit)
-	 * @param int $current, current page number
-	 * @param str $more_params, parameters to pass in the url
+	 * @param int $num_rows    total number of resultats for query (w/out limit)
+	 * @param int $current     current page number
+	 * @param str $more_params parameters to pass in the url
 	 *
 	 * @return echo
 	 */
@@ -385,7 +385,7 @@ class Utils
 	 * displays a message block
 	 *
 	 * @param string $message
-	 * @param string $type : error|warning|info|success
+	 * @param string $type error|warning|info|success
 	 *
 	 * @return string $buffer
 	 */
@@ -399,9 +399,9 @@ class Utils
 	/**
 	 * shorten a text without cutting the words
 	 *
-	 * @param string $text, the text to shorten
-	 * @param int $length, the number of words to return
-	 * @param string $suffix, the suffix to put after the shortened string
+	 * @param string $text   the text to shorten
+	 * @param int $length    the number of words to return
+	 * @param string $suffix the suffix to put after the shortened string
 	 *
 	 * @return string $shortened_text
 	 */
@@ -559,7 +559,7 @@ class Utils
 	 * TODO : change mysql stuff by pdo
 	 * @credits David Walsh <http://davidwalsh.name/backup-mysql-database-php>
 	 *
-	 * @param string $tables	tables to backup
+	 * @param string $tables tables to backup
 	 *
 	 * @return void
 	 */
@@ -641,7 +641,7 @@ class Utils
 	/**
 	 * create a password
 	 *
-	 * @param int $num, number of characters for password ; default 8
+	 * @param int $num number of characters for password ; default 8
 	 *
 	 * @return str $password, the password
 	 */
@@ -672,9 +672,9 @@ class Utils
 	/**
 	 * convert a string encoding to another
 	 *
-	 * @param string $string, the string to convert
-	 * @param string $to_encoding, the new encoding
-	 * @param string $from_encoding, the original encoding
+	 * @param string $string        the string to convert
+	 * @param string $to_encoding   the new encoding
+	 * @param string $from_encoding the original encoding
 	 *
 	 * @return string $string, the encoded string
 	 */
@@ -700,8 +700,8 @@ class Utils
 	/**
 	 * hash a password
 	 *
-	 * @param string $salt, the used salt
-	 * @param string $pwd, the password to hash
+	 * @param string $salt the used salt
+	 * @param string $pwd  the password to hash
 	 *
 	 * @return string $hashed_pwd
 	 */

@@ -110,7 +110,7 @@ class DaoAccountMetaRelationships
 	 * add metas values for a contact
 	 *
 	 * @param int $account_id
-	 * @param array $metas, the metas id and values
+	 * @param array $metas the metas id and values
 	 *
 	 * @return void
 	 */
@@ -143,7 +143,7 @@ class DaoAccountMetaRelationships
 	 * update metas values for a contact
 	 *
 	 * @param int $account_id
-	 * @param array $metas, the metas id and values
+	 * @param array $metas the metas id and values
 	 *
 	 * @return void
 	 */

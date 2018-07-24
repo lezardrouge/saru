@@ -54,9 +54,9 @@ class DaoContacts
 	/**
 	 * get list of contacts, possibly paginated, ordered and filtered
 	 *
-	 * @param array $criteria, search & order criteria
-	 * @param int $num, number of records to fetch ; default : NB_RECORDS
-	 * @param int $limit, number from which to fetch ; default : 0
+	 * @param array $criteria search & order criteria
+	 * @param int $num        number of records to fetch ; default : NB_RECORDS
+	 * @param int $limit      number from which to fetch ; default : 0
 	 *
 	 * @return
 	 */
@@ -467,8 +467,8 @@ class DaoContacts
 	/**
 	 * update contacts
 	 *
-	 * @param array $updates, attributes to update
-	 * @param array $where, conditions to match
+	 * @param array $updates attributes to update
+	 * @param array $where conditions to match
 	 */
 	function updateContactBy($updates, $where)
 	{
@@ -533,7 +533,7 @@ class DaoContacts
 	 * delete a contact
 	 *
 	 * @param Contact $contact
-	 * 
+	 *
 	 * @return void
 	 */
 	public function delContact(Contact $contact)

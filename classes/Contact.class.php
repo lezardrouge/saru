@@ -57,7 +57,7 @@ class Contact
 	/**
 	 * constructor
 	 *
-	 * @param array $data, for hydration
+	 * @param array $data for hydration
 	 */
 	public function __construct($data = array())
 	{
@@ -581,7 +581,7 @@ class Contact
 	/**
 	 * import contacts from a csv
 	 *
-	 * @param array $uploaded_file, $_FILES array
+	 * @param array $uploaded_file $_FILES array
 	 *
 	 * @return boolean
 	 */

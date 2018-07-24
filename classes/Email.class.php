@@ -114,7 +114,7 @@ class Email
 	 * @param array $from
 	 * @param string $subject
 	 * @param string $body
-	 * @param int $priority			priority sending
+	 * @param int $priority priority sending
 	 */
 	private function sendMail($recipients, $from, $subject, $body, $priority = 3)
 	{

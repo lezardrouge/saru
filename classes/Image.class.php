@@ -49,8 +49,8 @@ class Image
 	/**
 	 * upload a logo
 	 *
-	 * @param array $file, the $_FILES array
-	 * @param str $new_name, the new name for the uploaded file
+	 * @param array $file   the $_FILES array
+	 * @param str $new_name the new name for the uploaded file
 	 *
 	 * @return bool $success
 	 */

@@ -111,7 +111,7 @@ class DaoCompanyMetaRelationships
 	 * add metas values for a company
 	 *
 	 * @param int $company_id
-	 * @param array $metas, the metas id and values
+	 * @param array $metas the metas id and values
 	 *
 	 * @return void
 	 */
@@ -144,7 +144,7 @@ class DaoCompanyMetaRelationships
 	 * update metas values for a company
 	 *
 	 * @param int $company_id
-	 * @param array $metas, the metas id and values
+	 * @param array $metas the metas id and values
 	 *
 	 * @return void
 	 */

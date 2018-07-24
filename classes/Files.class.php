@@ -81,8 +81,8 @@ class Files
 	/**
 	 * open a file
 	 *
-	 * @param string $file, the file including path
-	 * @param string $mode, the mode to use to open
+	 * @param string $file the file including path
+	 * @param string $mode the mode to use to open
 	 *
 	 * @return mixed boolean|resource
 	 */
@@ -99,8 +99,8 @@ class Files
 	/**
 	 * write in a file
 	 *
-	 * @param string $file, the filename with the path
-	 * @param string $buffer, the text to write
+	 * @param string $file   the filename with the path
+	 * @param string $buffer the text to write
 	 *
 	 * @return bool
 	 */
@@ -136,7 +136,7 @@ class Files
 	/**
 	 * generate the first line for a CSV export
 	 *
-	 * @param bool $include_type	TRUE if the type must be included
+	 * @param bool $include_type TRUE if the type must be included
 	 *
 	 * @return string $buffer
 	 */
@@ -171,10 +171,10 @@ class Files
 	/**
 	 * general function to upload a file
 	 *
-	 * @param array $file, $_FILES array
-	 * @param string $path, the destination path
-	 * @param array $mimes, the mime types permitted
-	 * @param str $new_name, the new name for the uploaded file
+	 * @param array $file   $_FILES array
+	 * @param string $path  the destination path
+	 * @param array $mimes  the mime types permitted
+	 * @param str $new_name the new name for the uploaded file
 	 *
 	 * @return array $result (success, filename, message, old_filename)
 	 */
@@ -222,7 +222,7 @@ class Files
 	/**
 	 * upload a csv file
 	 *
-	 * @param array $uploaded_file, $_FILES array
+	 * @param array $uploaded_file $_FILES array
 	 *
 	 * @return bool
 	 */
@@ -239,8 +239,8 @@ class Files
 	/**
 	 * upload an attachment file
 	 *
-	 * @param int $account_id, the account to attach the file
-	 * @param array $uploaded_file, $_FILES array
+	 * @param int $account_id      the account to attach the file
+	 * @param array $uploaded_file $_FILES array
 	 *
 	 * @return boolean
 	 */
@@ -257,7 +257,7 @@ class Files
 	/**
 	 * check if a file exists
 	 *
-	 * @param string $filepath, the complete file path & name
+	 * @param string $filepath the complete file path & name
 	 *
 	 * @return boolean
 	 */
@@ -288,7 +288,7 @@ class Files
 	/**
 	 * get mime type of a file
 	 *
-	 * @param string $file, path & name to file
+	 * @param string $file path & name to file
 	 *
 	 * @return string mime
 	 */
@@ -302,8 +302,8 @@ class Files
 	/**
 	 * change permissions on a file
 	 *
-	 * @param string $file	the file path & name ; must be accessible via the server's filesystem (no remote file)
-	 * @param string $perms	permissions ; possible values (constants) : READ_WRITE|READ|WRITE|NONE
+	 * @param string $file  the file path & name ; must be accessible via the server's filesystem (no remote file)
+	 * @param string $perms permissions ; possible values (constants) : READ_WRITE|READ|WRITE|NONE
 	 */
 	public function chmodFile($file, $perms)
 	{
@@ -330,8 +330,8 @@ class Files
 	/**
 	 * zip files
 	 *
-	 * @param string $zipname	the zip file name
-	 * @param array $files		array of files to add to zip
+	 * @param string $zipname the zip file name
+	 * @param array $files    array of files to add to zip
 	 *
 	 * @return boolean
 	 */

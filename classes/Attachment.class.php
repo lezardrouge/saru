@@ -52,7 +52,7 @@ class Attachment
 	/**
 	 * constructor
 	 *
-	 * @param array $data, for hydration
+	 * @param array $data for hydration
 	 */
 	public function __construct($data = array())
 	{

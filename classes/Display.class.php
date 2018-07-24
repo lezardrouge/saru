@@ -42,8 +42,8 @@ class Display
 	/**
 	 * return the page as it must display
 	 *
-	 * @param int $template, the content template to fetch
-	 * @param int $main_template, the template to load
+	 * @param int $template the content template to fetch
+	 * @param int $main_template the template to load
 	 *
 	 * @return str $buffer, the html to display
 	 */
@@ -114,7 +114,7 @@ class Display
 	/**
 	 * fetch the main content page
 	 *
-	 * @param str $template, the page to load
+	 * @param str $template the page to load
 	 *
 	 * @return str $buffer, the html content
 	 */

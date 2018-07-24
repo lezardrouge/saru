@@ -219,10 +219,10 @@ class DaoAttachments
 	/**
 	 * set an attechment to an item : upload file and insert in DB
 	 *
-	 * @param int $account_id, the account to attach the file
-	 * @param str $type_item, the type of item : ct|ci|me
-	 * @param int $item_id, the id (pk) of item the file is linked to
-	 * @param array $uploaded_file, $_FILES array
+	 * @param int $account_id      the account to attach the file
+	 * @param str $type_item       the type of item : ct|ci|me
+	 * @param int $item_id         the id (pk) of item the file is linked to
+	 * @param array $uploaded_file $_FILES array
 	 *
 	 * @return boolean
 	 */
