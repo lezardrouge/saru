@@ -136,7 +136,7 @@ class Files
 	/**
 	 * generate the first line for a CSV export
 	 *
-	 * @param bool $include_type, if the type must be included
+	 * @param bool $include_type	TRUE if the type must be included
 	 *
 	 * @return string $buffer
 	 */

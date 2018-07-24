@@ -360,10 +360,11 @@ class Contact
 						. $file_class->csv_eol;
 			}
 		}
+		$encod_buffer = Utils::convertEncoding($buffer, 'ISO-8859-15', 'UTF-8');
 
 		$random = Utils::generateRandomString();
 		$filename = $file_class->default_dir . 'export_contact_' . date('Ymd_His') . "_" . $random . '.csv';
-		$res = $file_class->writeFile($filename, $header . $buffer);
+		$res = $file_class->writeFile($filename, $header . $encod_buffer);
 		if($res !== false) {
 			return $filename;
 		}
