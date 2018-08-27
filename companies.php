@@ -188,6 +188,8 @@ if($tpl == "list") {
 			$.datepicker.setDefaults($.datepicker.regional["fr"]);
 			$(".date").datepicker({
 				showOn: "both",
+				showOtherMonths: true,
+				selectOtherMonths: true,
 				buttonImage: "images/calendar.png",
 				buttonImageOnly: true,
 				showButtonPanel: true,

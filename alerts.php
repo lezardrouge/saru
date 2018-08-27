@@ -185,6 +185,8 @@ if($tpl == "list") {
 			$.datepicker.setDefaults($.datepicker.regional["fr"]);
 			$("#f_date_from, #f_date_to").datepicker({
 				showOn: "both",
+				showOtherMonths: true,
+				selectOtherMonths: true,
 				buttonImage: "images/calendar.png",
 				buttonImageOnly: true,
 				showButtonPanel: true,
@@ -314,6 +316,8 @@ elseif($tpl == "form" || $tpl == "form_s") {
 			$.datepicker.setDefaults($.datepicker.regional["fr"]);
 			$("#m_date").datepicker({
 				showOn: "both",
+				showOtherMonths: true,
+				selectOtherMonths: true,
 				buttonImage: "images/calendar.png",
 				buttonImageOnly: true,
 				showButtonPanel: true,
